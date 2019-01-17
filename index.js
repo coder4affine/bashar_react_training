@@ -379,3 +379,365 @@ class Animal {
 const obj = new Animal();
 
 obj.makeSound();
+
+class Animal {
+    constructor(param1 = 'hello', param2 = 'world' ) {
+        this.param1 = param1;
+        this.param2 = param2;
+
+    }
+
+    makeSound() {
+        return `${this.param1} ${this.param2}`
+    }
+}
+
+const obj = new Animal();
+console.log(obj.makeSound())
+
+class Animal {
+    constructor(param1 = 'hello', param2 = 'world' ) {
+        this.param1 = param1;
+        this.param2 = param2;
+
+    }
+
+    makeSound() {
+        return `${this.param1} ${this.param2}`
+    }
+}
+
+const obj = new Animal();
+console.log(obj.makeSound())
+
+
+
+
+const a = { a: 1, b: 2 };
+const b = { c: 3, b: 4 };
+
+ // { a: 1, b: 2, c: 3, d: 4 };
+// old aprroch to merge object
+//  const c = Object.assign({ d: 5}, a, b);
+//  console.log(c);
+
+ const c = {...a, ...b};
+ console.log(c);
+
+
+ 
+
+
+ const newUser = {...user, firstName: 'yagnesh'};
+
+ console.log(newUser);
+
+ const func1 = (a,b, ...x) => {
+    console.log(x);
+     return a + b
+ }
+
+ console.log(func1(1,2,3,4,5,6));
+
+
+ const users = [{
+    name: 'yagnesh',
+    gender: 'male'
+},
+{
+    name: 'virat',
+    gender: 'male'
+},
+{
+    name: 'rohit',
+    gender: 'male'
+},
+{
+    name: 'shikhar',
+    gender: 'male'
+}]
+
+
+const index = users.findIndex(x => x.name === 'virat');
+
+
+const editUsers = [...users.slice(0, index), {...users[index], name: 'prashant'} , ...users.slice(index + 1)];
+console.log(editUsers)
+
+
+const user = {
+    firstName: 'yagnesh1',
+    lastName: 'Modh',
+    gender: 'male',
+    dob: '04/08/1987'
+}
+
+const { firstName, ...x } = user
+
+console.log(firstName);
+console.log(x);
+
+
+
+const users = [{
+    name: 'yagnesh',
+    gender: 'male'
+},
+{
+    name: 'virat',
+    gender: 'male'
+},
+{
+    name: 'rohit',
+    gender: 'male'
+},
+{
+    name: 'shikhar',
+    gender: 'male'
+}]
+
+const [x, y, ...rest] = users;
+
+console.log(x);
+console.log(y);
+console.log(rest)
+
+
+
+const users = [{
+    name: 'yagnesh',
+    gender: 'male'
+},
+{
+    name: 'virat',
+    gender: 'male'
+},
+{
+    name: 'rohit',
+    gender: 'male'
+},
+{
+    name: 'shikhar',
+    gender: 'male'
+}]
+
+const newData = [...users.slice(0, Math.round(users.length /2)), {name: 'ishan', gender: 'make'}, ...users.slice((users.length /2) + 1)];
+
+console.log(newData)
+
+// looping tech
+
+// for loop
+
+// foreach loop
+
+//while loop
+
+// do while loop
+
+// map
+
+// reduce
+
+// for of
+
+// for in
+
+const arr = [...Array(1000000).keys()]
+
+console.time('for loop');
+
+for (let index = 0; index < arr.length; index++) {
+    const element = arr[index];
+}
+
+console.timeEnd('for loop')
+
+console.time('foreach loop');
+
+arr.forEach(element => {
+    const element1 = element;
+});
+
+console.timeEnd('foreach loop')
+
+
+console.time('map loop');
+
+arr.map((item) => item);
+
+console.timeEnd('map loop')
+
+console.time('reduce loop');
+
+arr.reduce((previous, current) => {
+   return previous 
+}, 0);
+
+console.timeEnd('reduce loop')
+
+
+console.time('forof loop');
+
+for (const i of arr) {
+    const el = i;
+}
+
+console.timeEnd('forof loop')
+
+
+
+const users = [{
+    name: 'yagnesh',
+    gender: 'male'
+},
+{
+    name: 'virat',
+    gender: 'male',
+    dob: '04081987'
+},
+{
+    name: 'rohit',
+    gender: 'male'
+},
+{
+    name: 'shikhar',
+    gender: 'male'
+}]
+
+
+for (const i of users) {
+    console.log(i)
+}
+
+
+ const user = {
+    firstName: 'yagnesh1',
+    lastName: 'Modh'
+ }
+
+
+ for (const key in user) {
+     console.log(key);
+ }
+
+
+ const user = {
+    firstName: 'yagnesh1',
+    lastName: 'Modh'
+ }
+
+
+ for (const [key, value] of Object.entries(user)) {
+     console.log(key);
+     console.log(value);
+ }
+
+ const c = new Promise((resolve, reject) => {
+    setTimeout(() => {
+    }, 2000);
+  });
+  
+  c.then(data => console.log(data)).catch(err => {
+    console.log(err);
+  });
+
+
+
+
+const a = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('promise 1');
+    }, 1000);
+});
+
+
+const b = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject('promise 2');
+    }, 1000);
+});
+
+const d = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject('promise 3');
+    }, 1000);
+});
+
+
+const c = Promise.all([a, b, d]).then(x => console.log(x)).catch(err => console.log(err))
+
+
+
+
+const a = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('promise 5');
+    }, 10000);
+});
+
+
+const b = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('promise 7');
+    }, 5000);
+});
+
+
+  
+  
+
+const a = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('promise 5');
+    }, 2000);
+});
+
+
+const b = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('promise 6');
+    }, 1000);
+});
+
+
+
+
+const handlePromise = async () => {
+  
+    const res = await Promise.race([a, b]);
+
+    console.log(res);
+
+}
+
+handlePromise();
+
+  
+function* xyz() {
+    yield 1;
+    yield 2;
+    yield 3;
+    return 5;
+}
+
+const obj = xyz();
+
+console.log(obj.next())
+console.log(obj.next())
+console.log(obj.next())
+console.log(obj.next())
+console.log(obj.next())
+
+
+for (const i of obj) {
+    console.log(i)
+}
+
+
+import moduleName from 'module';
+import {  } from 'module';
+import * as name from 'module';
+  
+  
+  
