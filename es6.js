@@ -740,4 +740,33 @@ import {  } from 'module';
 import * as name from 'module';
   
   
-  
+const a = {
+    a: 1,
+    b: {
+        c: 2,
+        d: { 
+            e: 4,
+            f: 5
+        }
+    }
+}
+
+
+const b = {
+    a: 1,
+    b: {}
+}
+
+if(a === b) -> true
+
+
+1
+2
+3
+10, <- cursor
+11
+4 
+5
+6
+7
+8
