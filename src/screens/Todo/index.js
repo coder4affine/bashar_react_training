@@ -11,44 +11,75 @@ class index extends PureComponent {
     status: "all"
   };
 
+  constructor(props) {
+    super(props);
+    this.getData();
+  }
+
+  getData = async () => {
+    const res = await fetch("http://localhost:3004/todos");
+    const json = await res.json();
+    this.setState({ todoList: json });
+  };
+
+  deleteData = async id => {
+    await fetch(`http://localhost:3004/todos/${id}`, {
+      method: "DELETE"
+    });
+    const { todoList } = this.state;
+    this.setState({
+      todoList: todoList.filter(x => x.id !== id)
+    });
+  };
+
+  saveData = async data => {
+    let url = "http://localhost:3004/todos";
+    let method = "POST";
+    if (data.id) {
+      url = `${url}/${data.id}`;
+      method = "PUT";
+    }
+    const res = await fetch(url, {
+      method: method,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    const { todoList } = this.state;
+    if (data.id) {
+      const index = todoList.findIndex(x => x.id === data.id);
+      this.setState({
+        todoList: [
+          ...todoList.slice(0, index),
+          json,
+          ...todoList.slice(index + 1)
+        ]
+      });
+    } else {
+      this.setState({ todoList: [json, ...todoList] });
+    }
+  };
+
   changeText = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   addTodo = e => {
     e.preventDefault();
-    const { todo, todoList } = this.state;
-    this.setState({
-      todoList: [
-        {
-          id: new Date().getMilliseconds(),
-          text: todo,
-          isDone: false
-        },
-        ...todoList
-      ],
-      todo: ""
+    const { todo } = this.state;
+    this.saveData({
+      text: todo,
+      isDone: false
     });
   };
 
   completeTask = id => {
     const { todoList } = this.state;
     const index = todoList.findIndex(x => x.id === id);
-    this.setState({
-      todoList: [
-        ...todoList.slice(0, index),
-        { ...todoList[index], isDone: !todoList[index].isDone },
-        ...todoList.slice(index + 1)
-      ]
-    });
-  };
-
-  deleteTask = id => {
-    const { todoList } = this.state;
-    const index = todoList.findIndex(x => x.id === id);
-    this.setState({
-      todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)]
-    });
+    this.saveData({ ...todoList[index], isDone: !todoList[index].isDone });
   };
 
   changeStatus = status => {
@@ -70,7 +101,7 @@ class index extends PureComponent {
           todoList={todoList}
           status={status}
           completeTask={this.completeTask}
-          deleteTask={this.deleteTask}
+          deleteTask={this.deleteData}
         />
       </div>
     );
