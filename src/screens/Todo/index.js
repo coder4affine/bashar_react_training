@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 class index extends Component {
   state = {
     todo: "",
-    todoList: []
+    todoList: [],
+    status: "all"
   };
 
   changeText = e => {
@@ -47,8 +48,12 @@ class index extends Component {
     });
   };
 
+  changeStatus = status => {
+    this.setState({ status });
+  };
+
   render() {
-    const { todo, todoList } = this.state;
+    const { todo, todoList, status } = this.state;
     return (
       <div>
         <h1>My Todo Application</h1>
@@ -61,40 +66,68 @@ class index extends Component {
           />
           <input type="submit" value="Add Todo" />
         </form>
-
         <div>
-          {todoList.map(item => (
-            <div
-              key={item.id}
-              style={{
-                display: "flex",
-                flex: 1,
-                flexDirection: "row",
-                alignItems: "center",
-                margin: "10px 0"
-              }}
-            >
-              <input
-                type="checkbox"
-                value={item.isDone}
-                onChange={() => this.completeTask(item.id)}
-              />
-              <span
+          <input
+            type="button"
+            value="All Tasks"
+            onClick={() => this.changeStatus("all")}
+          />
+          <input
+            type="button"
+            value="Pending Tasks"
+            onClick={() => this.changeStatus("pending")}
+          />
+          <input
+            type="button"
+            value="Completed Task"
+            onClick={() => this.changeStatus("completed")}
+          />
+        </div>
+        <div>
+          {todoList
+            .filter(x => {
+              switch (status) {
+                case "pending":
+                  return !x.isDone;
+                case "completed":
+                  return x.isDone;
+
+                default:
+                  return true;
+              }
+            })
+            .map(item => (
+              <div
+                key={item.id}
                 style={{
-                  textDecoration: item.isDone ? "line-through" : "none",
                   display: "flex",
-                  flex: 1
+                  flex: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  margin: "10px 0"
                 }}
               >
-                {item.text}
-              </span>
-              <input
-                type="button"
-                value="Delete"
-                onClick={() => this.deleteTask(item.id)}
-              />
-            </div>
-          ))}
+                <input
+                  type="checkbox"
+                  value={item.isDone}
+                  onChange={() => this.completeTask(item.id)}
+                />
+                <span
+                  style={{
+                    textDecoration: item.isDone ? "line-through" : "none",
+                    display: "flex",
+                    flex: 1
+                  }}
+                >
+                  {item.text}
+                </span>
+                <input
+                  type="button"
+                  value="Delete"
+                  onClick={() => this.deleteTask(item.id)}
+                />
+              </div>
+            ))}
         </div>
       </div>
     );
