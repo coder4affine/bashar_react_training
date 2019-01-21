@@ -11,7 +11,8 @@ class index extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  addTodo = () => {
+  addTodo = e => {
+    e.preventDefault();
     const { todo, todoList } = this.state;
     this.setState({
       todoList: [
@@ -51,15 +52,16 @@ class index extends Component {
     return (
       <div>
         <h1>My Todo Application</h1>
-        <div>
+        <form onSubmit={this.addTodo}>
           <input
             type="text"
             name="todo"
             value={todo}
             onChange={this.changeText}
           />
-          <input type="button" value="Add Todo" onClick={this.addTodo} />
-        </div>
+          <input type="submit" value="Add Todo" />
+        </form>
+
         <div>
           {todoList.map(item => (
             <div
