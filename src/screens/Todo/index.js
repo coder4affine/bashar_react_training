@@ -1,7 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+// import PropTypes from "prop-types";
+import TodoList from "./todoList";
+import TodoForm from "./todoForm";
+import StatusView from "./statusView";
 
-class index extends Component {
+class index extends PureComponent {
   state = {
     todo: "",
     todoList: [],
@@ -57,78 +60,18 @@ class index extends Component {
     return (
       <div>
         <h1>My Todo Application</h1>
-        <form onSubmit={this.addTodo}>
-          <input
-            type="text"
-            name="todo"
-            value={todo}
-            onChange={this.changeText}
-          />
-          <input type="submit" value="Add Todo" />
-        </form>
-        <div>
-          <input
-            type="button"
-            value="All Tasks"
-            onClick={() => this.changeStatus("all")}
-          />
-          <input
-            type="button"
-            value="Pending Tasks"
-            onClick={() => this.changeStatus("pending")}
-          />
-          <input
-            type="button"
-            value="Completed Task"
-            onClick={() => this.changeStatus("completed")}
-          />
-        </div>
-        <div>
-          {todoList
-            .filter(x => {
-              switch (status) {
-                case "pending":
-                  return !x.isDone;
-                case "completed":
-                  return x.isDone;
-
-                default:
-                  return true;
-              }
-            })
-            .map(item => (
-              <div
-                key={item.id}
-                style={{
-                  display: "flex",
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  margin: "10px 0"
-                }}
-              >
-                <input
-                  type="checkbox"
-                  value={item.isDone}
-                  onChange={() => this.completeTask(item.id)}
-                />
-                <span
-                  style={{
-                    textDecoration: item.isDone ? "line-through" : "none",
-                    display: "flex",
-                    flex: 1
-                  }}
-                >
-                  {item.text}
-                </span>
-                <input
-                  type="button"
-                  value="Delete"
-                  onClick={() => this.deleteTask(item.id)}
-                />
-              </div>
-            ))}
-        </div>
+        <TodoForm
+          todo={todo}
+          addTodo={this.addTodo}
+          changeText={this.changeText}
+        />
+        <StatusView changeStatus={this.changeStatus} />
+        <TodoList
+          todoList={todoList}
+          status={status}
+          completeTask={this.completeTask}
+          deleteTask={this.deleteTask}
+        />
       </div>
     );
   }
