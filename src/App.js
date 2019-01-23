@@ -1,16 +1,21 @@
 import React, { PureComponent } from 'react';
 // import PropTypes from "prop-types";
+import { BrowserRouter as Router } from 'react-router-dom';
+import Header from './components/Header';
+import Route from './route';
 import './App.css';
-import Todo from './screens/Todo';
 
 class App extends PureComponent {
   state = {};
 
   render() {
     return (
-      <div className="App">
-        <Todo />
-      </div>
+      <Router>
+        <>
+          <Header />
+          <Route />
+        </>
+      </Router>
     );
   }
 }

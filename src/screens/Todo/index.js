@@ -8,7 +8,7 @@ const defaultTodo = {
   id: '',
   text: '',
 };
-class index extends PureComponent {
+class Index extends PureComponent {
   state = {
     todo: defaultTodo,
     todoList: [],
@@ -114,6 +114,6 @@ class index extends PureComponent {
   }
 }
 
-index.propTypes = {};
+Index.propTypes = {};
 
-export default index;
+export default Index;
