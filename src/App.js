@@ -1,9 +1,11 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react';
 // import PropTypes from "prop-types";
-import "./App.css";
-import Todo from "./screens/Todo";
+import './App.css';
+import Todo from './screens/Todo';
 
 class App extends PureComponent {
+  state = {};
+
   render() {
     return (
       <div className="App">

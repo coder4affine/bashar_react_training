@@ -1,18 +1,18 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react';
 // import PropTypes from "prop-types";
-import TodoList from "./todoList";
-import TodoForm from "./todoForm";
-import StatusView from "./statusView";
+import TodoList from './todoList';
+import TodoForm from './todoForm';
+import StatusView from './statusView';
 
 const defaultTodo = {
-  id: "",
-  text: ""
+  id: '',
+  text: '',
 };
 class index extends PureComponent {
   state = {
     todo: defaultTodo,
     todoList: [],
-    status: "all"
+    status: 'all',
   };
 
   constructor(props) {
@@ -21,47 +21,43 @@ class index extends PureComponent {
   }
 
   getData = async () => {
-    const res = await fetch("http://localhost:3004/todos");
+    const res = await fetch('http://localhost:3004/todos');
     const json = await res.json();
     this.setState({ todoList: json });
   };
 
   deleteData = async id => {
     await fetch(`http://localhost:3004/todos/${id}`, {
-      method: "DELETE"
+      method: 'DELETE',
     });
     const { todoList } = this.state;
     this.setState({
-      todoList: todoList.filter(x => x.id !== id)
+      todoList: todoList.filter(x => x.id !== id),
     });
   };
 
   saveData = async data => {
-    let url = "http://localhost:3004/todos";
-    let method = "POST";
+    let url = 'http://localhost:3004/todos';
+    let method = 'POST';
     if (data.id) {
       url = `${url}/${data.id}`;
-      method = "PUT";
+      method = 'PUT';
     }
     const res = await fetch(url, {
-      method: method,
+      method,
       headers: {
-        accept: "application/json",
-        "Content-Type": "application/json"
+        accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const json = await res.json();
     const { todoList } = this.state;
     if (data.id) {
       const index = todoList.findIndex(x => x.id === data.id);
       this.setState({
-        todoList: [
-          ...todoList.slice(0, index),
-          json,
-          ...todoList.slice(index + 1)
-        ],
-        todo: defaultTodo
+        todoList: [...todoList.slice(0, index), json, ...todoList.slice(index + 1)],
+        todo: defaultTodo,
       });
     } else {
       this.setState({ todoList: [json, ...todoList], todo: defaultTodo });
@@ -79,7 +75,7 @@ class index extends PureComponent {
     this.saveData({
       id: todo.id,
       text: todo.text,
-      isDone: false
+      isDone: false,
     });
   };
 
@@ -104,11 +100,7 @@ class index extends PureComponent {
     return (
       <div>
         <h1>My Todo Application</h1>
-        <TodoForm
-          todo={todo}
-          addTodo={this.addTodo}
-          changeText={this.changeText}
-        />
+        <TodoForm todo={todo} addTodo={this.addTodo} changeText={this.changeText} />
         <StatusView changeStatus={this.changeStatus} />
         <TodoList
           todoList={todoList}
