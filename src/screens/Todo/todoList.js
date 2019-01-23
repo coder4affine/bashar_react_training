@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 
-const todoList = ({ todoList, status, completeTask, deleteTask }) => {
+const todoList = ({ todoList, status, completeTask, deleteTask, editTask }) => {
   return (
     <div>
       {todoList
@@ -46,6 +46,11 @@ const todoList = ({ todoList, status, completeTask, deleteTask }) => {
               value="Delete"
               onClick={() => deleteTask(item.id)}
             />
+            <input
+              type="button"
+              value="Edit"
+              onClick={() => editTask(item.id)}
+            />
           </div>
         ))}
     </div>
@@ -56,7 +61,8 @@ todoList.propTypes = {
   todoList: PropTypes.array.isRequired,
   status: PropTypes.string.isRequired,
   completeTask: PropTypes.func.isRequired,
-  deleteTask: PropTypes.func.isRequired
+  deleteTask: PropTypes.func.isRequired,
+  editTask: PropTypes.func.isRequired
 };
 
 export default memo(todoList);

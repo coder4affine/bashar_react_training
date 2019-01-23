@@ -4,9 +4,13 @@ import TodoList from "./todoList";
 import TodoForm from "./todoForm";
 import StatusView from "./statusView";
 
+const defaultTodo = {
+  id: "",
+  text: ""
+};
 class index extends PureComponent {
   state = {
-    todo: "",
+    todo: defaultTodo,
     todoList: [],
     status: "all"
   };
@@ -56,22 +60,25 @@ class index extends PureComponent {
           ...todoList.slice(0, index),
           json,
           ...todoList.slice(index + 1)
-        ]
+        ],
+        todo: defaultTodo
       });
     } else {
-      this.setState({ todoList: [json, ...todoList] });
+      this.setState({ todoList: [json, ...todoList], todo: defaultTodo });
     }
   };
 
   changeText = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    const { todo } = this.state;
+    this.setState({ todo: { ...todo, text: e.target.value } });
   };
 
   addTodo = e => {
     e.preventDefault();
     const { todo } = this.state;
     this.saveData({
-      text: todo,
+      id: todo.id,
+      text: todo.text,
       isDone: false
     });
   };
@@ -84,6 +91,12 @@ class index extends PureComponent {
 
   changeStatus = status => {
     this.setState({ status });
+  };
+
+  editTask = id => {
+    const { todoList } = this.state;
+    const todo = todoList.find(x => x.id === id);
+    this.setState({ todo: { id: todo.id, text: todo.text } });
   };
 
   render() {
@@ -102,6 +115,7 @@ class index extends PureComponent {
           status={status}
           completeTask={this.completeTask}
           deleteTask={this.deleteData}
+          editTask={this.editTask}
         />
       </div>
     );
