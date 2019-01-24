@@ -1,22 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 // import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
-import Todo from './screens/Todo';
-import Home from './screens/Home';
-import About from './screens/About';
+import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+
+const AsyncTodo = lazy(() => import('./screens/Todo'));
+const AsyncHome = lazy(() => import('./screens/Home'));
+const AsyncAbout = lazy(() => import('./screens/About'));
+
+const Loader = () => <h1>Loading...</h1>;
 
 export default class route extends Component {
   state = {};
 
-  static propTypes = {};
-
   render() {
     return (
-      <>
-        <Route path="/" exact component={Home} />
-        <Route path="/about/" component={About} />
-        <Route path="/todo/" component={Todo} />
-      </>
+      <Switch>
+        <Suspense fallback={<Loader />}>
+          <Route path="/" exact component={AsyncHome} />
+          <Route path="/about/" component={AsyncAbout} />
+          <PrivateRoute isAuthenticated path="/todo/" component={AsyncTodo} />
+        </Suspense>
+      </Switch>
     );
   }
 }
