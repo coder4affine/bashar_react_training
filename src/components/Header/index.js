@@ -1,22 +1,20 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const index = () => (
+const index = ({ routes }) => (
   <nav>
     <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/todo/">Todo</Link>
-      </li>
-      <li>
-        <Link to="/about/">About</Link>
-      </li>
+      {routes.map(route => (
+        <li key={route.id}>
+          <Link to={route.path}>{route.label}</Link>
+        </li>
+      ))}
     </ul>
   </nav>
 );
-index.propTypes = {};
+index.propTypes = {
+  routes: PropTypes.array.isRequired,
+};
 
 export default index;

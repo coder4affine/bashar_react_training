@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react';
 // import PropTypes from "prop-types";
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header';
+import routeDetails from './utils/routeDetails';
 import Route from './route';
+import ThemeContext from './context/themeContext';
 import './App.css';
 
 class App extends PureComponent {
@@ -12,8 +14,10 @@ class App extends PureComponent {
     return (
       <Router>
         <>
-          <Header />
-          <Route />
+          <Header routes={routeDetails} />
+          <ThemeContext>
+            <Route />
+          </ThemeContext>
         </>
       </Router>
     );
