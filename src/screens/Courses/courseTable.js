@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 class courseTable extends Component {
   static propTypes = {
     courses: PropTypes.array.isRequired,
+    authors: PropTypes.array.isRequired,
   };
 
-  getAuthorDetail = () => {
-    throw new Error('Oops! something goes wrong');
+  getAuthorDetail = id => {
+    const { authors } = this.props;
+    const author = authors.find(x => x.id === id);
+    if (author) {
+      return `${author.firstName} ${author.lastName}`;
+    }
+    return '';
   };
 
   render() {

@@ -13,12 +13,12 @@ class App extends PureComponent {
   render() {
     return (
       <Router>
-        <>
-          <Header routes={routeDetails} />
-          <ThemeContext>
+        <ThemeContext>
+          <>
+            <Header routes={routeDetails} />
             <Route />
-          </ThemeContext>
-        </>
+          </>
+        </ThemeContext>
       </Router>
     );
   }

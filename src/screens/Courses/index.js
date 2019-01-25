@@ -33,22 +33,13 @@ export default class index extends Component {
     }
   };
 
-  getAuthorDetail = id => {
-    const { authors } = this.state;
-    const author = authors.find(x => x.id === id);
-    if (author) {
-      return `${author.firstName} ${author.lastName}`;
-    }
-    return '';
-  };
-
   render() {
-    const { courses } = this.state;
+    const { courses, authors } = this.state;
     return (
       <div>
         <Consumer>{value => <span>{value.theme}</span>}</Consumer> <h1>Courses</h1>
         <ErrorBoundary>
-          <Table courses={courses} />
+          <Table courses={courses} authors={authors} />
         </ErrorBoundary>
       </div>
     );

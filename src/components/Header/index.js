@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Consumer } from '../../context/themeContext';
 
 const index = ({ routes }) => (
   <nav>
@@ -10,6 +11,13 @@ const index = ({ routes }) => (
           <Link to={route.path}>{route.label}</Link>
         </li>
       ))}
+      <Consumer>
+        {value => (
+          <div>
+            <input type="button" value="Change Theme" onClick={value.changeTheme} />
+          </div>
+        )}
+      </Consumer>
     </ul>
   </nav>
 );
