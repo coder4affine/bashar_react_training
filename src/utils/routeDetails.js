@@ -4,6 +4,7 @@ const AsyncTodo = lazy(() => import('../screens/Todo'));
 const AsyncHome = lazy(() => import('../screens/Home'));
 const AsyncAbout = lazy(() => import('../screens/About'));
 const AsyncCourses = lazy(() => import('../screens/Courses'));
+const AsyncCreateCourse = lazy(() => import('../screens/Courses/createCourse'));
 
 export default [
   {
@@ -32,6 +33,13 @@ export default [
   },
   {
     id: 4,
+    path: '/createCourse',
+    component: AsyncCreateCourse,
+    isExact: false,
+    isPrivate: false,
+  },
+  {
+    id: 5,
     path: '/todo',
     component: AsyncTodo,
     label: 'Todo',

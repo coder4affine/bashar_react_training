@@ -6,11 +6,16 @@ import { Consumer } from '../../context/themeContext';
 const index = ({ routes }) => (
   <nav>
     <ul>
-      {routes.map(route => (
-        <li key={route.id}>
-          <Link to={route.path}>{route.label}</Link>
-        </li>
-      ))}
+      {routes.map(route => {
+        if (route.label) {
+          return (
+            <li key={route.id}>
+              <Link to={route.path}>{route.label}</Link>
+            </li>
+          );
+        }
+        return null;
+      })}
       <Consumer>
         {value => (
           <div>

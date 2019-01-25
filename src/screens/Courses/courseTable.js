@@ -5,6 +5,8 @@ class courseTable extends Component {
   static propTypes = {
     courses: PropTypes.array.isRequired,
     authors: PropTypes.array.isRequired,
+    editCourse: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired,
   };
 
   getAuthorDetail = id => {
@@ -17,7 +19,7 @@ class courseTable extends Component {
   };
 
   render() {
-    const { courses } = this.props;
+    const { courses, editCourse, deleteCourse } = this.props;
     return (
       <table>
         <thead>
@@ -27,6 +29,7 @@ class courseTable extends Component {
             <th>Author</th>
             <th>Length</th>
             <th>Category</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +43,14 @@ class courseTable extends Component {
                 <td>{this.getAuthorDetail(course.authorId)}</td>
                 <td>{course.length}</td>
                 <td>{course.category}</td>
+                <td>
+                  <button type="button" onClick={() => editCourse(course)}>
+                    Edit
+                  </button>
+                  <button type="button" onClick={() => deleteCourse(course.id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
         </tbody>
@@ -47,7 +58,5 @@ class courseTable extends Component {
     );
   }
 }
-
-courseTable.propTypes = {};
 
 export default courseTable;

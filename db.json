@@ -58,14 +58,6 @@
       "authorId": "cory-house",
       "length": "2:30",
       "category": "Career"
-    },
-    {
-      "id": "web-components-shadow-dom",
-      "title": "Web Component Fundamentals",
-      "watchHref": "http://www.pluralsight.com/courses/web-components-shadow-dom",
-      "authorId": "cory-house",
-      "length": "5:10",
-      "category": "HTML5"
     }
   ],
   "authors": [
