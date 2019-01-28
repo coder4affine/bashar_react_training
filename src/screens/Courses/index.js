@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Table from './courseTable';
 import ErrorBoundary from '../../components/ErrorBoundary';
 
-export default class index extends Component {
+class index extends Component {
   state = {
     courses: [],
     authors: [],
@@ -11,11 +12,15 @@ export default class index extends Component {
 
   static propTypes = {
     history: PropTypes.object.isRequired,
+    locale: PropTypes.object.isRequired,
+    changeLanguage: PropTypes.func.isRequired,
+    requestAuthors: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.getData();
+    props.requestAuthors();
   }
 
   getData = async () => {
@@ -69,8 +74,12 @@ export default class index extends Component {
 
   render() {
     const { courses, authors } = this.state;
+    const { locale } = this.props;
+
     return (
       <div>
+        <div>{locale}</div>
+        <input type="button" value="Change Language" onClick={this.props.changeLanguage} />
         <input type="button" value="Create Course" onClick={this.createCourse} />
         <ErrorBoundary>
           <Table
@@ -84,3 +93,21 @@ export default class index extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    locale: state.locale,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLanguage: () => dispatch({ type: 'CHANGE_LANGUAGE', payload: 'es' }),
+    requestAuthors: () => dispatch({ type: 'REQUEST_AUTHORS' }),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(index);
