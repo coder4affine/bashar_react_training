@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from '../../components/Tooltip';
 
 class courseTable extends Component {
   static propTypes = {
@@ -38,7 +39,9 @@ class courseTable extends Component {
               <tr key={course.id}>
                 <td>{course.title}</td>
                 <td>
-                  <a href={course.watchHref}>Link</a>
+                  <Tooltip text="Click on Link">
+                    <a href={course.watchHref}>Link</a>
+                  </Tooltip>
                 </td>
                 <td>{this.getAuthorDetail(course.authorId)}</td>
                 <td>{course.length}</td>

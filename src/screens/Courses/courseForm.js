@@ -20,9 +20,11 @@ const courseForm = ({ initialValues, onSubmit, authors }) => (
       {({
         handleSubmit,
         isSubmitting,
+        values,
         /* and other goodies */
       }) => (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+          <input type="hidden" value={values.id} name="id" />
           <Field type="text" name="title" label="Title" component={TextInput} />
           <Field type="text" name="watchHref" label="Link" component={TextInput} />
           <Field type="text" name="length" label="Length" component={TextInput} />

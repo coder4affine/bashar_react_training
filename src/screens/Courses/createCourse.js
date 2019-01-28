@@ -10,7 +10,7 @@ class createCourse extends Component {
   };
 
   state = {
-    form: { title: '', watchHref: '', length: '', category: '', authorId: '' },
+    form: { id: '', title: '', watchHref: '', length: '', category: '', authorId: '' },
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -28,14 +28,25 @@ class createCourse extends Component {
 
   onSubmit = async (values, { setSubmitting }) => {
     try {
-      await fetch('http://localhost:3004/courses', {
-        method: 'POST',
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      if (values.id) {
+        await fetch(`http://localhost:3004/courses/${values.id}`, {
+          method: 'PUT',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+      } else {
+        await fetch('http://localhost:3004/courses', {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+      }
       this.props.history.push('courses');
     } catch (error) {
       alert(error);
