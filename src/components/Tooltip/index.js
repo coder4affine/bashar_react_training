@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class index extends Component {
   state = {
-    // active: false,
+    active: false,
   };
 
   constructor(props) {
@@ -15,6 +15,7 @@ class index extends Component {
     if (!this.domNode) {
       this.domNode = document.createElement('div');
       this.domNode.setAttribute('id', id);
+      this.domNode.setAttribute('key', '1');
       document.body.appendChild(this.domNode);
     }
   }
@@ -68,6 +69,7 @@ class index extends Component {
   render() {
     const source = (
       <span
+        key="0"
         ref={this.sourceRef}
         tabIndex="0"
         role="button"
