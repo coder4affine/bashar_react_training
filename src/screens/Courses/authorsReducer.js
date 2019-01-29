@@ -1,3 +1,5 @@
+import * as types from '../../constants/types';
+
 const initialState = {
   loading: false,
   data: [],
@@ -6,13 +8,13 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case 'REQUEST_AUTHORS':
+    case types.REQUEST_AUTHORS:
       return { ...state, loading: true };
 
-    case 'SUCCESS_AUTHORS':
+    case types.SUCCESS_AUTHORS:
       return { ...state, loading: false, data: payload };
 
-    case 'ERROR_AUTHORS':
+    case types.ERROR_AUTHORS:
       return { ...state, loading: false, error: payload };
 
     default:

@@ -5,7 +5,6 @@ import TextInput from '../../components/TextInput';
 
 const courseForm = ({ initialValues, onSubmit, authors }) => (
   <div>
-    <h1>Anywhere in your app!</h1>
     <Formik
       initialValues={initialValues}
       validate={values => {
