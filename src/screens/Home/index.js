@@ -3,7 +3,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 const index = () => (
-  <div>
+  <div className="container">
     <h1>Home Page</h1>
   </div>
 );

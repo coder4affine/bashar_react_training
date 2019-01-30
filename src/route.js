@@ -27,7 +27,9 @@ export default class route extends Component {
                         isAuthenticated
                         exact={routeDetail.isExact}
                         path={routeDetail.path}
-                        render={props => <routeDetail.component {...props} />}
+                        render={props => (
+                          <routeDetail.component title={routeDetail.label} {...props} />
+                        )}
                       />
                     );
                   }
@@ -36,7 +38,9 @@ export default class route extends Component {
                       key={routeDetail.id}
                       path={routeDetail.path}
                       exact={routeDetail.isExact}
-                      render={props => <routeDetail.component {...props} />}
+                      render={props => (
+                        <routeDetail.component title={routeDetail.label} {...props} />
+                      )}
                     />
                   );
                 })}

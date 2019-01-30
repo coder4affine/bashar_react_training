@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import TodoList from './todoList';
 import TodoForm from './todoForm';
 import StatusView from './statusView';
+import test from '../../HOC/testHOC';
 
-const defaultTodo = {
+export const defaultTodo = {
   id: '',
   text: '',
 };
-class Index extends PureComponent {
+export class Index extends PureComponent {
   state = {
     todo: defaultTodo,
     todoList: [],
@@ -97,9 +98,11 @@ class Index extends PureComponent {
 
   render() {
     const { todo, todoList, status } = this.state;
+    const { testData } = this.props;
     return (
       <div>
-        <h1>My Todo Application</h1>
+        <h1>{testData}</h1>
+        <input type="button" value="Call Test Method" onClick={this.props.testMethod} />
         <TodoForm todo={todo} addTodo={this.addTodo} changeText={this.changeText} />
         <StatusView changeStatus={this.changeStatus} />
         <TodoList
@@ -114,6 +117,9 @@ class Index extends PureComponent {
   }
 }
 
-Index.propTypes = {};
+Index.propTypes = {
+  testData: PropTypes.string.isRequired,
+  testMethod: PropTypes.func.isRequired,
+};
 
-export default Index;
+export default test(Index);

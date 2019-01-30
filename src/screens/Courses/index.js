@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import * as types from '../../constants/types';
 import courses from './courses';
+import test from '../../HOC/testHOC';
 
 function mapStateToProps(state) {
   return {
@@ -21,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(courses);
+)(test(courses));

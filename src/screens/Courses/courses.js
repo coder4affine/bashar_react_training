@@ -14,6 +14,7 @@ export default class index extends Component {
     courses: PropTypes.object.isRequired,
     requestSaveCourses: PropTypes.func.isRequired,
     requestDeleteCourse: PropTypes.func.isRequired,
+    testData: PropTypes.string.isRequired,
   };
 
   state = {
@@ -42,34 +43,37 @@ export default class index extends Component {
   onSubmit = () => {};
 
   render() {
-    const { authors, courses } = this.props;
+    const { authors, courses, testData } = this.props;
 
     if (authors.loading || courses.loading) {
       return <h1>Loading...</h1>;
     }
 
     return (
-      <div>
-        <input type="button" value="Create Course" onClick={this.createCourse} />
-        <ErrorBoundary>
-          <Table
-            courses={courses.data}
-            authors={authors.data}
-            deleteCourse={this.deleteCourse}
-            editCourse={this.editCourse}
-          />
-        </ErrorBoundary>
-        <Modal open={this.state.open} closeModal={() => this.setState({ open: false })}>
-          <CreateCourse
-            course={this.state.form}
-            authors={authors.data}
-            onSubmit={values => {
-              this.props.requestSaveCourses(values);
-              this.setState({ open: false });
-            }}
-          />
-        </Modal>
-      </div>
+      <React.StrictMode>
+        <div>
+          <h1>{testData}</h1>
+          <input type="button" value="Create Course" onClick={this.createCourse} />
+          <ErrorBoundary>
+            <Table
+              courses={courses.data}
+              authors={authors.data}
+              deleteCourse={this.deleteCourse}
+              editCourse={this.editCourse}
+            />
+          </ErrorBoundary>
+          <Modal open={this.state.open} closeModal={() => this.setState({ open: false })}>
+            <CreateCourse
+              course={this.state.form}
+              authors={authors.data}
+              onSubmit={values => {
+                this.props.requestSaveCourses(values);
+                this.setState({ open: false });
+              }}
+            />
+          </Modal>
+        </div>
+      </React.StrictMode>
     );
   }
 }

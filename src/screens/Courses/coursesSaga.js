@@ -1,9 +1,7 @@
 import { takeLatest, takeEvery, call, put, all } from 'redux-saga/effects';
 import * as types from '../../constants/types';
 
-// const wait = ms => new Promise(res => setTimeout(res, ms));
-
-const api = async (url, method = null, headers = null, body = null) => {
+export const api = async (url, method = null, headers = null, body = null) => {
   let options = {};
   if (method) {
     options = { ...options, method };
@@ -21,6 +19,8 @@ const api = async (url, method = null, headers = null, body = null) => {
   if (body) {
     options = { ...options, body };
   }
+  const { wait } = await import('../../utils');
+  await wait(1000);
   const response = await fetch(url, options);
   const json = await response.json();
   return json;
@@ -55,7 +55,7 @@ function* saveCourses({ payload }) {
   }
 }
 
-function* deleteCourses({ payload }) {
+export function* deleteCourses({ payload }) {
   try {
     yield call(api, `http://localhost:3004/courses/${payload}`, 'DELETE');
 

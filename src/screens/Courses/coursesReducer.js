@@ -1,6 +1,6 @@
 import * as types from '../../constants/types';
 
-const initialState = {
+export const initialState = {
   loading: false,
   data: [],
   error: false,
