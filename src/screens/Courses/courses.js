@@ -20,6 +20,7 @@ export default class index extends Component {
   state = {
     open: false,
     form: { id: '', title: '', watchHref: '', length: '', category: '', authorId: '' },
+    // offline: !navigator.onLine,
   };
 
   constructor(props) {
@@ -27,6 +28,21 @@ export default class index extends Component {
     props.requestCourses();
     props.requestAuthors();
   }
+
+  // componentDidMount() {
+  //   window.addEventListener('online', this.setOfflineStatus);
+  //   window.addEventListener('offline', this.setOfflineStatus);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('online', this.setOfflineStatus);
+  //   window.removeEventListener('offline', this.setOfflineStatus);
+  // }
+
+  // setOfflineStatus = () => {
+  //   console.log('!navigator.onLine', !navigator.onLine);
+  //   this.setState({ offline: !navigator.onLine });
+  // };
 
   createCourse = () => {
     this.setState({ open: true });
